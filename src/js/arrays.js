@@ -4,7 +4,7 @@
   фишка задания сделать свою реализацию, чтобы понять, как он работает под капотом. Для перебора советую использовать for цикл
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
-const array = [-1, -2, -1, 1, 2, 3];
+const array = [1, 2, 3];
 
 function forEach(array, callback) {
   const newArr = [];
@@ -52,14 +52,13 @@ function callback(item, index, arr) {
 function filter(array, callback) {
   const newArr = [];
 
-  array.reduce((prev, curr) => {
-    if (callback(curr)) {
-      prev.push(curr);
+  for (let i = 0; i < array.length; i++) {
+    if (callback(array[i], i, array)) {
+      newArr.push(array[i]);
+      
     }
-    return prev;
 
-  }, newArr);
-
+  }
   return newArr;
 }
 
@@ -85,6 +84,7 @@ const reduceResult = reduce(array, (previous, current, index) => {
   return previous + current;
 }, 0)
 console.log(reduceResult);
+
 /* Функция принимает в себе первым аргументом массив, вторым функцию которая будет вызываться для каждого элемента массива
  вот документация https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
  Это используется для удобного быстрого перебора массива. Функция должна ВЕРНУТЬ true или false. Если хотя бы для одного элемента callback вернет true, то вся функция возвращает true/
@@ -94,9 +94,6 @@ console.log(reduceResult);
 function some(array, callback) {
   for (let i = 0; i < array.length; i++) {
     if (callback(array[i], i, array)) {
-      console.log(array[i]);
-      console.log(i);
-      console.log(array);
       return true;
     }
   }
@@ -117,23 +114,21 @@ console.log(someResult); // => true
 */
 function every(array, callback) {
   // console.log(array);
-  let a = '';
-
   for (let i = 0; i < array.length; i++) {
-
-    a = callback(array[i], i, array)
-    if(a === false) return a;
+    let result = callback(array[i], i, array)
+    if (!result) {
+      return false;
+    }
   }
-
+  return true;
 }
 
 
 const everyResult = every(array, (item, index, array) => {
-  console.log(item);
   return item > 2;
 });
 
-console.log(someResult); // => false
+console.log(everyResult); // => false
 
 // Эту часть не удаляем, она важна для проверки результата
 module.exports = {
