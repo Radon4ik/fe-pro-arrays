@@ -55,7 +55,6 @@ function filter(array, callback) {
   for (let i = 0; i < array.length; i++) {
     if (callback(array[i], i, array)) {
       newArr.push(array[i]);
-      
     }
 
   }
@@ -64,6 +63,7 @@ function filter(array, callback) {
 
 const newArr = filter(array, (item) => item > 1);
 console.log(newArr);
+
 /* Функция принимает в себе первым аргументом массив, вторым функцию которая будет вызываться для каждого элемента массива, 3 аргумент изначальный вариант
  вот документация https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
  Это используется для удобного быстрого перебора массива. Функция должна результат.
@@ -127,7 +127,6 @@ function every(array, callback) {
 const everyResult = every(array, (item, index, array) => {
   return item > 2;
 });
-
 console.log(everyResult); // => false
 
 // Эту часть не удаляем, она важна для проверки результата
